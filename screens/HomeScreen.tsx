@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import {
     SafeAreaView,
@@ -8,9 +10,11 @@ import {
 } from 'react-native';
 import { CustomButton } from '../components/CustomButton';
 import { useAuth } from '../context/AuthContext';
+import type { RootStackParamList } from '../navigation/types';
 
 export const HomeScreen: React.FC = () => {
   const { user, signOut } = useAuth();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const handleLogout = async () => {
     try {
@@ -60,7 +64,14 @@ export const HomeScreen: React.FC = () => {
           <View style={styles.actionCard}>
             <Text style={styles.actionTitle}>¿Listo para registrar un nuevo reciclaje?</Text>
             <Text style={styles.actionSubtitle}>Mantén el hábito y comparte tus avances con la comunidad.</Text>
-            <CustomButton title="Cerrar Sesión" onPress={handleLogout} />
+            <View style={styles.actionButtons}>
+              <CustomButton
+                title="Módulo de aprendizaje"
+                variant="secondary"
+                onPress={() => navigation.navigate('LearningModule')}
+              />
+              <CustomButton title="Cerrar Sesión" onPress={handleLogout} />
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -203,5 +214,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#d1fae5',
     marginBottom: 16,
+  },
+  actionButtons: {
+    gap: 12,
   },
 });
