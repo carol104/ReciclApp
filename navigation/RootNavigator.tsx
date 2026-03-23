@@ -4,10 +4,12 @@ import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { HomeScreen } from '../screens/HomeScreen';
+import { LearningModuleScreen } from '../screens/LearningModuleScreen';
 import { LoginScreen } from '../screens/LoginScreen';
 import { RegisterScreen } from '../screens/RegisterScreen';
+import type { RootStackParamList } from './types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator: React.FC = () => {
   const { isLoading, user } = useAuth();
@@ -30,13 +32,21 @@ export const RootNavigator: React.FC = () => {
           }}
         >
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen
+            name="LearningModule"
+            component={LearningModuleScreen}
+            options={{
+              headerShown: true,
+              title: 'Aprendizaje',
+            }}
+          />
         </Stack.Navigator>
       ) : (
         // Stack de pantallas de autenticación
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
-            animationEnabled: false,
+            animation: 'none',
           }}
         >
           <Stack.Screen name="Login" component={LoginScreen} />
