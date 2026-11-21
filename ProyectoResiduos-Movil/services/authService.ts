@@ -34,6 +34,7 @@ export const authService = {
       // Guardar usuario
       users.push(userWithPassword);
       await AsyncStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+      await AsyncStorage.setItem(CURRENT_USER_KEY, JSON.stringify(newUser));
 
       return newUser;
     } catch (error) {

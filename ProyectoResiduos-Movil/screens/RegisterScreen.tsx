@@ -1,16 +1,15 @@
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import {
-    Alert,
     KeyboardAvoidingView,
     Platform,
-    SafeAreaView,
     ScrollView,
     StyleSheet,
     Text,
     TouchableOpacity,
     View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomButton } from '../components/CustomButton';
 import { CustomInput } from '../components/CustomInput';
 import { useAuth } from '../context/AuthContext';
@@ -33,10 +32,11 @@ export const RegisterScreen: React.FC<{ navigation: any }> = ({
     validationSchema: registerValidationSchema,
     onSubmit: async (values) => {
       setLoading(true);
+      formik.setStatus(undefined);
       try {
         await signUp(values.email, values.password, values.name);
       } catch (error) {
-        Alert.alert('Error', error instanceof Error ? error.message : 'Error al registrarse');
+        formik.setStatus(error instanceof Error ? error.message : 'No se pudo crear la cuenta.');
       } finally {
         setLoading(false);
       }
@@ -51,11 +51,13 @@ export const RegisterScreen: React.FC<{ navigation: any }> = ({
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.headerContainer}>
+            <Text style={styles.logo}>♻</Text><Text style={styles.brand}>PrioTask.</Text>
             <Text style={styles.title}>Crear Cuenta</Text>
-            <Text style={styles.subtitle}>Regístrate para continuar</Text>
+            <Text style={styles.subtitle}>Tu primera acción por un futuro más verde.</Text>
           </View>
 
           <View style={styles.formContainer}>
+            {!!formik.status && <Text accessibilityLiveRegion="polite" style={styles.error}>{formik.status}</Text>}
             <CustomInput
               label="Nombre Completo"
               placeholder="Juan Pérez"
@@ -122,17 +124,23 @@ export const RegisterScreen: React.FC<{ navigation: any }> = ({
 };
 
 const styles = StyleSheet.create({
+  logo: { fontSize: 54, color: '#286343', marginBottom: 8 },
+  brand: { fontSize: 34, fontWeight: '800', color: '#205C40', letterSpacing: -1, marginBottom: 24 },
+  error: { color: '#9C4036', backgroundColor: '#F8EDE7', padding: 14, borderRadius: 12, marginBottom: 16 },
   safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F5F8F3',
   },
   container: {
     flex: 1,
   },
   scrollContent: {
     flexGrow: 1,
+    width: '100%',
+    maxWidth: 480,
+    alignSelf: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 26,
     paddingVertical: 20,
   },
   headerContainer: {
@@ -140,9 +148,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 32,
+    fontSize: 26,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#234631',
     marginBottom: 8,
   },
   subtitle: {
@@ -166,7 +174,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   linkText: {
-    color: '#007AFF',
+    color: '#286343',
     fontSize: 14,
     fontWeight: '600',
   },

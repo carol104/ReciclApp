@@ -18,20 +18,24 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
   loading = false,
   variant = 'primary',
   disabled,
+  style,
   ...props
 }) => {
   return (
     <TouchableOpacity
+      {...props}
+      accessibilityRole="button"
+      accessibilityState={{ disabled: !!disabled || loading, busy: loading }}
       style={[
         styles.button,
         variant === 'secondary' && styles.secondaryButton,
         disabled && styles.disabledButton,
+        style,
       ]}
       disabled={disabled || loading}
-      {...props}
     >
       {loading ? (
-        <ActivityIndicator color={variant === 'primary' ? '#fff' : '#007AFF'} />
+        <ActivityIndicator color={variant === 'primary' ? '#fff' : '#286343'} />
       ) : (
         <Text
           style={[
@@ -48,10 +52,10 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#286343',
     paddingVertical: 14,
     paddingHorizontal: 20,
-    borderRadius: 8,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 48,
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
   secondaryButton: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#007AFF',
+    borderColor: '#286343',
   },
   disabledButton: {
     opacity: 0.5,
@@ -70,6 +74,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   secondaryButtonText: {
-    color: '#007AFF',
+    color: '#286343',
   },
 });

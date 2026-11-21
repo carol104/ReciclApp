@@ -1,16 +1,15 @@
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import {
-    Alert,
     KeyboardAvoidingView,
     Platform,
-    SafeAreaView,
     ScrollView,
     StyleSheet,
     Text,
     TouchableOpacity,
     View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomButton } from '../components/CustomButton';
 import { CustomInput } from '../components/CustomInput';
 import { useAuth } from '../context/AuthContext';
@@ -29,10 +28,11 @@ export const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     validationSchema: loginValidationSchema,
     onSubmit: async (values) => {
       setLoading(true);
+      formik.setStatus(undefined);
       try {
         await signIn(values.email, values.password);
       } catch (error) {
-        Alert.alert('Error', error instanceof Error ? error.message : 'Error al iniciar sesión');
+        formik.setStatus(error instanceof Error ? error.message : 'No se pudo iniciar sesión.');
       } finally {
         setLoading(false);
       }
@@ -47,11 +47,13 @@ export const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.headerContainer}>
-            <Text style={styles.title}>Bienvenido</Text>
-            <Text style={styles.subtitle}>Inicia sesión en tu cuenta</Text>
+            <Text style={styles.logo}>♻</Text><Text style={styles.brand}>PrioTask.</Text>
+            <Text style={styles.title}>Vuelve a tu lado verde.</Text>
+            <Text style={styles.subtitle}>Pequeñas acciones para un planeta mejor.</Text>
           </View>
 
           <View style={styles.formContainer}>
+            {!!formik.status && <Text accessibilityLiveRegion="polite" style={styles.error}>{formik.status}</Text>}
             <CustomInput
               label="Email"
               placeholder="tu@email.com"
@@ -97,17 +99,23 @@ export const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  logo: { fontSize: 54, color: '#286343', marginBottom: 8 },
+  brand: { fontSize: 34, fontWeight: '800', color: '#205C40', letterSpacing: -1, marginBottom: 24 },
+  error: { color: '#9C4036', backgroundColor: '#F8EDE7', padding: 14, borderRadius: 12, marginBottom: 16 },
   safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F5F8F3',
   },
   container: {
     flex: 1,
   },
   scrollContent: {
     flexGrow: 1,
+    width: '100%',
+    maxWidth: 480,
+    alignSelf: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 26,
     paddingVertical: 20,
   },
   headerContainer: {
@@ -115,9 +123,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 32,
+    fontSize: 26,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#234631',
     marginBottom: 8,
   },
   subtitle: {
@@ -141,7 +149,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   linkText: {
-    color: '#007AFF',
+    color: '#286343',
     fontSize: 14,
     fontWeight: '600',
   },
