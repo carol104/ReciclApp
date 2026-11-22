@@ -21,6 +21,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
+        accessibilityLabel={label}
         style={[styles.input, error && styles.inputError]}
         placeholderTextColor="#999"
         {...props}
@@ -37,18 +38,18 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#333',
+    color: '#234631',
     marginBottom: 8,
   },
   input: {
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 8,
+    borderRadius: 14,
     paddingHorizontal: 12,
     paddingVertical: 12,
     fontSize: 16,
-    color: '#333',
-    backgroundColor: '#fff',
+    color: '#234631',
+    backgroundColor: '#F5F8F3',
   },
   inputError: {
     borderColor: '#ff4444',

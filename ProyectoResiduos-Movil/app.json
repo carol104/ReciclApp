@@ -1,19 +1,19 @@
 {
   "expo": {
-    "name": "ProyectoResiduos",
+    "name": "PrioTask",
     "slug": "ProyectoResiduos",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "proyectoresiduos",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#F5F8F3"
       }
     },
     "web": {

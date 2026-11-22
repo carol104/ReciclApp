@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Admin | Proyecto Residuos</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-one"></div>
+    <div class="bg-shape bg-shape-two"></div>
+
+    <main class="layout">
+      <section class="hero">
+        <p class="eyebrow">Proyecto Residuos</p>
+        <h1>Centro de Alertas Ciudadanas</h1>
+        <p class="lead">
+          Configura alertas críticas, programa eventos importantes y envía notificaciones push a los ciudadanos en segundos.
+        </p>
+      </section>
+
+      <section class="card auth-card">
+        <h2>Autorización Admin</h2>
+        <label>
+          API Key
+          <input id="adminKey" type="password" placeholder="x-admin-key" />
+        </label>
+        <button id="saveKeyBtn" class="btn btn-primary">Guardar clave</button>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Nueva alerta configurable</h2>
+          <form id="createAlertForm" class="form">
+            <label>
+              Título
+              <input name="title" required minlength="3" placeholder="Ej. Punto crítico en zona norte" />
+            </label>
+
+            <label>
+              Mensaje
+              <textarea name="message" required minlength="5" placeholder="Detalle para ciudadanos"></textarea>
+            </label>
+
+            <div class="row">
+              <label>
+                Severidad
+                <select name="severity">
+                  <option value="low">Baja</option>
+                  <option value="medium">Media</option>
+                  <option value="high">Alta</option>
+                  <option value="critical">Crítica</option>
+                </select>
+              </label>
+
+              <label>
+                Estado
+                <select name="status">
+                  <option value="draft">Borrador</option>
+                  <option value="scheduled">Programada</option>
+                  <option value="sent">Enviada</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="row">
+              <label>
+                Programar para (ISO)
+                <input name="scheduledFor" placeholder="2026-03-23T20:00:00.000Z" />
+              </label>
+              <label>
+                Expira en (ISO)
+                <input name="expiresAt" placeholder="2026-03-24T02:00:00.000Z" />
+              </label>
+            </div>
+
+            <label>
+              Tags (coma separadas)
+              <input name="tags" placeholder="centro, ciudadanos, norte" />
+            </label>
+
+            <label class="checkbox-row">
+              <input name="sendPush" type="checkbox" checked />
+              Enviar push
+            </label>
+
+            <button class="btn btn-primary" type="submit">Crear alerta</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <h2>Enviar notificación inmediata</h2>
+          <form id="sendNotificationForm" class="form">
+            <label>
+              Título
+              <input name="title" required minlength="3" placeholder="Aviso importante" />
+            </label>
+            <label>
+              Mensaje
+              <textarea name="message" required minlength="5" placeholder="Mensaje a ciudadanos"></textarea>
+            </label>
+            <div class="row">
+              <label>
+                Severidad
+                <select name="severity">
+                  <option value="low">Baja</option>
+                  <option value="medium">Media</option>
+                  <option value="high">Alta</option>
+                  <option value="critical">Crítica</option>
+                </select>
+              </label>
+              <label>
+                Tags objetivo
+                <input name="tags" placeholder="ciudadanos, sur" />
+              </label>
+            </div>
+            <button class="btn btn-secondary" type="submit">Enviar ahora</button>
+          </form>
+        </article>
+      </section>
+
+      <section class="card">
+        <div class="list-header">
+          <h2>Alertas registradas</h2>
+          <button id="refreshAlertsBtn" class="btn btn-ghost">Actualizar</button>
+        </div>
+        <div id="alertsList" class="alerts-list"></div>
+      </section>
+
+      <section class="card logs">
+        <h2>Estado</h2>
+        <pre id="statusBox">Panel listo.</pre>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

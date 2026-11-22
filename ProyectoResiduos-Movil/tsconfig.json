@@ -1,0 +1,24 @@
+{
+  "extends": "expo/tsconfig.base.json",
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "App.tsx",
+    "navigation/**/*.tsx",
+    "screens/**/*.tsx",
+    "context/**/*.tsx",
+    "services/**/*.ts",
+    "types/**/*.ts",
+    "utils/**/*.ts",
+    "components/CustomButton.tsx",
+    "components/CustomInput.tsx"
+  ]
+}

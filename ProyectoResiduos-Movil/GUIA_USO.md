@@ -1,4 +1,15 @@
-# Guía de Uso - Residuos App
+# Guía de uso — PrioTask
+
+## Reciclaje: recorrido de demostración
+
+1. Crea una cuenta o inicia sesión. La sesión se conserva al reabrir la app.
+2. En **Recolectar**, selecciona el material, escribe el peso (por ejemplo, 5 kg), una dirección y una fecha desde hoy en formato AAAA-MM-DD. Elige un horario y guarda.
+3. La solicitud aparece en **Historial** como pendiente. Puedes cancelarla o pulsar **Simular entrega completada** y confirmar. Una entrega de 5 kg suma 100 puntos; no se pueden sumar puntos dos veces por la misma entrega.
+4. En **Inicio**, consulta tus kilos, entregas y progreso hacia 10 kg.
+5. En **Premios**, con 100 puntos puedes simular un canje de semillas. Confirma para descontar los puntos y guardar el canje. No se entregan productos reales.
+6. En **Mapa**, elige un material e introduce opcionalmente una ciudad o sector. **Buscar puntos en Google Maps** abre una búsqueda externa; consulta allí horarios y materiales aceptados.
+
+Los datos se guardan únicamente en este dispositivo, separados por usuario. Las solicitudes no contactan recolectores y los premios pertenecen a un catálogo de demostración. Para operar con recolecciones y premios reales se requiere implementar sus servicios en el backend.
 
 ## Flujo de Autenticación
 

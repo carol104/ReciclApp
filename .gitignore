@@ -31,6 +31,10 @@ yarn-error.*
 
 # local env files
 .env*.local
+ProyectoResiduos-Admin/.env
+
+# admin runtime data
+ProyectoResiduos-Admin/data/store.json
 
 # typescript
 *.tsbuildinfo
